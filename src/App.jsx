@@ -12,7 +12,8 @@ class App extends Component {
 
     // local state:
     this.state = {
-      name: 'RJ',
+      name: {firstName: 'RJ', lastName: 'Cunanan'},
+      company: 'ZTM'
     };
   }
 
@@ -28,10 +29,20 @@ class App extends Component {
           </a>
           <p>
             {/* Curly braces allows us to insert JS: */}
-            Hi {this.state.name}
+            Hi {this.state.name.firstName} {this.state.name.lastName}, I work at {this.state.company}
           </p>
           <button onClick={() => {
-            this.setState({name: 'Andrei'});  
+            this.setState(
+              // Updater function that updates our state with a new name:
+              () => {
+                return {
+                  name: {firstName: 'Andrei', lastName: 'Neaogie'}
+                }
+              }, 
+              // Callback function that prints our new state to the console:
+              () => {
+                console.log(this.state);
+              });  
             // Update state to a different object with a new name
           }}>
             Change Name
