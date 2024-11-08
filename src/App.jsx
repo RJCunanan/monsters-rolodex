@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import './App.css'
 
+// Class component that represents our entire application
 class App extends Component {
   
   constructor() {
@@ -10,11 +11,14 @@ class App extends Component {
     this.state = {
       monsters: [],
     };
+
+    console.log('constructor');
   }
 
   // Lifecyle method that fetches users from the API the first time this
   // component "mounts" or gets placed onto the DOM
   componentDidMount() {
+    console.log('componentDidMount');
     // fetch the data from the provided url:
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json()) // convert data returned into a JSON object
@@ -28,9 +32,14 @@ class App extends Component {
   }
 
   render() {
+    console.log('render');
     return (
       <>
         <div>
+          {/* Search box for user to type in name of monster */}
+          <input className='search-box' type='search' placeholder='search monsters' onChange={(event) => {
+            console.log(event.target.value)
+          }} />
           {/* Cycle through each monster and return an h1 tag with the monster's name */}
           {this.state.monsters.map((monster) => {
             return (
