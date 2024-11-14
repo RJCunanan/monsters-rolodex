@@ -1,4 +1,5 @@
 import { Component } from "react";
+import './search-box.styles.css';
 
 /*
 Generic search box that allows user to type in and search for the name 
@@ -10,7 +11,7 @@ class SearchBox extends Component {
             <div>
                 {/* Search box for user to type in name of monster */}
                 <input 
-                    className={this.props.className}
+                    className={`search-box ${this.props.className}`}
 
                     // Turns our generic input field into a search field:
                     type='search' 
