@@ -1,18 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/serach-box/search-box.component';
 import './App.css';
 
-const App = () => {
-  console.log('render');
-  
+const App = () => {  
   // Use array destructuring to get two values from useState():
   // [value, setValue]
 
-  // Initialize searchField state with empty string.
+  // Initialize hooks:
+  // search string that user types in:
   const [ searchField, setSearchField ] = useState('');  
 
-  console.log(searchField);
+  // array of monsters:
+  const [ monsters, setMonsters ] = useState([]); 
+
+  // filtered list of monsters initialized to monsters value:
+  const [ filteredMonsters, setFilteredMonsters] = useState(monsters);  
+
+
+  // Get the monsters data when this component mounts.
+  useEffect(() => {
+    // fetch the data from the provided url:
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json()) // convert data returned into a JSON object
+    .then((users) => setMonsters(users));
+  }, []);
+
+
+  // Update our filtered list of monsters only whenever the list of monsters or
+  // the search field value the user types in changes.
+  useEffect(() => {
+    // Filters the monsters based on the callback function and return a new
+    // array.
+    const newFilteredMonsters = monsters.filter((monster) => {
+      // If the monster's name includes the search string, keep it.
+      // If it does not, get rid of it.
+      return monster.name.toLowerCase().includes(searchField);
+    });
+
+    // Update state with new list of filtered monsters
+    setFilteredMonsters(newFilteredMonsters);
+  }, [monsters, searchField])
+
 
   // Updates the searchField string in state based on what the user enters
   // into the search box.
@@ -23,6 +52,7 @@ const App = () => {
     // Update the search string in state
     setSearchField(searchFieldString);
   }
+
 
   return (
     <>
@@ -35,7 +65,7 @@ const App = () => {
           onChangeHandler={onSearchChange}
         />
 
-        {/* <CardList monsters={filteredMonsters} /> */}
+        <CardList monsters={filteredMonsters} />
       </div>
     </>
   )
