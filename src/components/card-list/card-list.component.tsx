@@ -1,11 +1,15 @@
+import { Monster } from '../../App';
 import './card-list.styles.css';
 import Card from '../card/card.component';
 
+type CardListProps = {
+    monsters: Monster[];
+}
 
 /*
 Creates our list of monsters
 */
-const CardList = ({ monsters }) => (
+const CardList = ({ monsters }: CardListProps) => (
     // "monsters" contains the already filtered list of monsters
     
     <div className='card-list'>

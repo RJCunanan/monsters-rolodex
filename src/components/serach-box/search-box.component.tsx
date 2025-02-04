@@ -1,10 +1,19 @@
+import { ChangeEvent } from 'react';
+
 import './search-box.styles.css';
+
+
+type SearchBoxProps = {
+    className: string;
+    placeholder?: string;
+    onChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+}
 
 /*
 Generic search box that allows user to type in and search for the name 
 of a monster
 */
-const SearchBox = ({ className, placeholder, onChangeHandler }) => (
+const SearchBox = ({ className, placeholder, onChangeHandler } : SearchBoxProps) => (
     // Search box for user to type in name of monster:
     <input 
         className={`search-box ${className}`}

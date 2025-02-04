@@ -1,10 +1,15 @@
+import { Monster } from '../../App';
 import './card.styles.css';
+
+type CardProps = {
+    monster: Monster;
+}
 
 /*
 Takes in list of monsters through props and returns a single card displaying
 the monster's information
 */
-const Card = ({ monster }) => {  
+const Card = ({ monster }: CardProps) => {  
     // Destructure properties from our list of monsters:
     const { id, name, email } = monster;
 
